@@ -2,14 +2,28 @@
 using System.Collections.Generic;
 namespace TourneeFutee
 {
-    public class Matrix
-    {// TODO : ajouter tous les attributs que vous jugerez pertinents 
+    public class Graph
+    {
 
-        private List<List<float>> mat;
-        private int nbRows;
-        private int nbColums;
-        private float defaultValue;
+        private List<string> vertexNames;     // TODO : ajouter tous les attributs que vous jugerez pertinents 
+        private List<float> vertexValues;
+        private Matrix adjacencyMatrix;
+        private bool directed;
+        private float noEdgeValue;
 
+
+        // --- Construction du graphe ---
+
+        // Contruit un graphe (`directed`=true => orienté)
+        // La valeur `noEdgeValue` est le poids modélisant l'absence d'un arc (0 par défaut)
+        public Graph(bool directed, float noEdgeValue = 0)
+        {
+            this.directed = directed;   // TODO : implémenter
+            this.noEdgeValue = noEdgeValue;
+            this.vertexNames = new List<string>();
+            this.vertexValues = new List<float>();
+            this.adjacencyMatrix = new Matrix(0, 0, noEdgeValue);
+        }
 
         // --- Propriétés ---
 
@@ -17,16 +31,16 @@ namespace TourneeFutee
         // Lecture seule
         public int Order
         {
-            get;    // TODO : implémenter
-                    // pas de set
+            get { return vertexNames.Count; }    // TODO : implémenter
+                                                 // pas de set
         }
 
         // Propriété : graphe orienté ou non
         // Lecture seule
         public bool Directed
         {
-            get;    // TODO : implémenter
-                    // pas de set
+            get { return directed; }    // TODO : implémenter
+                                        // pas de set
         }
 
 
@@ -36,7 +50,14 @@ namespace TourneeFutee
         // Lève une ArgumentException s'il existe déjà un sommet avec le même nom dans le graphe
         public void AddVertex(string name, float value = 0)
         {
-            // TODO : implémenter
+            if (vertexNames.Contains(name)) //TODO: implémenter
+            {
+                throw new ArgumentException($"Le sommet de nom '{name}' existe déjà dans le graphe.");
+            }
+            vertexNames.Add(name);
+            vertexValues.Add(value);
+            adjacencyMatrix.AddRow(adjacencyMatrix.NbRows);
+            adjacencyMatrix.AddColumn(adjacencyMatrix.NbColumns);
         }
 
 
