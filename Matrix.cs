@@ -42,25 +42,25 @@
             // Lecture seule
             public float DefaultValue
         {
-            get; // TODO : implémenter
-                 // pas de set
-        }
+                get { return this.defaultValue; } // TODO : implémenter
+                                                  // pas de set
+            }
 
         // Propriété : nombre de lignes
         // Lecture seule
         public int NbRows
         {
-            get; // TODO : implémenter
-                 // pas de set
-        }
+                get { return this.nbRows; } // TODO : implémenter
+                                            // pas de set
+            }
 
         // Propriété : nombre de colonnes
         // Lecture seule
         public int NbColumns
         {
-            get; // TODO : implémenter
-                 // pas de set
-        }
+                get { return this.nbColums; } // TODO : implémenter
+                                              // pas de set
+            }
 
         /* Insère une ligne à l'indice `i`. Décale les lignes suivantes vers le bas.
          * Toutes les cases de la nouvelle ligne contiennent DefaultValue.
@@ -69,8 +69,18 @@
          */
         public void AddRow(int i)
         {
-            // TODO : implémenter
-        }
+                if (i < 0 || i > NbRows)   // TODO : implémenter
+                {
+                    throw new ArgumentOutOfRangeException("L'indice de la ligne doit être compris entre 0 et le nombre de lignes.");
+                }
+                List<float> newRow = new List<float>();
+                for (int j = 0; j < NbColumns; j++)
+                {
+                    newRow.Add(DefaultValue);
+                }
+                mat.Insert(i, newRow);
+                nbRows++;
+            }
 
         /* Insère une colonne à l'indice `j`. Décale les colonnes suivantes vers la droite.
          * Toutes les cases de la nouvelle ligne contiennent DefaultValue.
@@ -79,22 +89,43 @@
          */
         public void AddColumn(int j)
         {
-            // TODO : implémenter
-        }
+                if (j < 0 || j > NbColumns)   // TODO : implémenter
+                {
+                    throw new ArgumentOutOfRangeException("L'indice de la colonne doit être compris entre 0 et le nombre de colonnes.");
+                }
+                for (int i = 0; i < NbRows; i++)
+                {
+                    mat[i].Insert(j, DefaultValue);
+                }
+                nbColums++;
+            }
 
         // Supprime la ligne à l'indice `i`. Décale les lignes suivantes vers le haut.
         // Lève une ArgumentOutOfRangeException si `i` est en dehors des indices valides
         public void RemoveRow(int i)
         {
-            // TODO : implémenter
-        }
+                if (i < 0 || i >= NbRows)    // TODO : implémenter
+                {
+                    throw new ArgumentOutOfRangeException("L'indice de la ligne doit être compris entre 0 et le nombre de lignes - 1.");
+                }
+                mat.RemoveAt(i);
+                nbRows--;
+            }
 
         // Supprime la colonne à l'indice `j`. Décale les colonnes suivantes vers la gauche.
         // Lève une ArgumentOutOfRangeException si `j` est en dehors des indices valides
         public void RemoveColumn(int j)
         {
-            // TODO : implémenter
-        }
+                if (j < 0 || j >= NbColumns)   // TODO : implémenter 
+                {
+                    throw new ArgumentOutOfRangeException("L'indice de la colonne doit être compris entre 0 et le nombre de colonnes - 1.");
+                }
+                for (int i = 0; i < NbRows; i++)
+                {
+                    mat[i].RemoveAt(j);
+                }
+                nbColums--;
+            }
 
         // Renvoie la valeur à la ligne `i` et colonne `j`
         // Lève une ArgumentOutOfRangeException si `i` ou `j` est en dehors des indices valides
