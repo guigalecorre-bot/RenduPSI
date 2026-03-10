@@ -153,8 +153,19 @@
 
             public void Print()
         {
-            // TODO : implémenter
-        }
+                for (int i = 0; i < NbRows; i++)
+                {
+                    for (int j = 0; j < NbColumns; j++)
+                    {
+                        Console.Write(mat[i][j]);
+                        if (j < NbColumns - 1)
+                        {
+                            Console.Write(" ");
+                        }
+                    }
+                    Console.WriteLine();
+                }// TODO : implémenter
+            }
 
 
         // TODO : ajouter toutes les méthodes que vous jugerez pertinentes 
