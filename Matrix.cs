@@ -127,23 +127,31 @@
                 nbColums--;
             }
 
-        // Renvoie la valeur à la ligne `i` et colonne `j`
-        // Lève une ArgumentOutOfRangeException si `i` ou `j` est en dehors des indices valides
-        public float GetValue(int i, int j)
-        {
-            // TODO : implémenter
-            return 0.0f;
-        }
+            // Renvoie la valeur à la ligne `i` et colonne `j`
+            // Lève une ArgumentOutOfRangeException si `i` ou `j` est en dehors des indices valides
+            public float GetValue(int i, int j)
+            {
+                if (i < 0 || i >= NbRows || j < 0 || j >= NbColumns)    // TODO : implémenter
+                {
+                    throw new ArgumentOutOfRangeException("Les indices de ligne et de colonne doivent être compris entre 0 et le nombre de lignes/colonnes - 1.");
+                }
+                return mat[i][j];
+            }
 
-        // Affecte la valeur à la ligne `i` et colonne `j` à `v`
-        // Lève une ArgumentOutOfRangeException si `i` ou `j` est en dehors des indices valides
-        public void SetValue(int i, int j, float v)
-        {
-            // TODO : implémenter
-        }
+            // Affecte la valeur à la ligne `i` et colonne `j` à `v`
+            // Lève une ArgumentOutOfRangeException si `i` ou `j` est en dehors des indices valides
+            public void SetValue(int i, int j, float v)
+            {
+                if (i < 0 || i >= NbRows || j < 0 || j >= NbColumns)    // TODO : implémenter
+                {
+                    throw new ArgumentOutOfRangeException("Les indices de ligne et de colonne doivent être compris entre 0 et le nombre de lignes/colonnes - 1.");
+                }
+                mat[i][j] = v;
+            }
 
-        // Affiche la matrice
-        public void Print()
+            // Affiche la matrice
+
+            public void Print()
         {
             // TODO : implémenter
         }
