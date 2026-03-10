@@ -65,22 +65,27 @@ namespace TourneeFutee
         // Lève une ArgumentException si le sommet n'a pas été trouvé dans le graphe
         public void RemoveVertex(string name)
         {
-            // TODO : implémenter
+            int index = GetVertexIndex(vertexName);// TODO : implémenter
+            vertexNames.RemoveAt(index);
+            vertexValues.RemoveAt(index);
+            adjacencyMatrix.RemoveRow(index);
+            adjacencyMatrix.RemoveColumn(index);
         }
 
         // Renvoie la valeur du sommet de nom `name`
         // Lève une ArgumentException si le sommet n'a pas été trouvé dans le graphe
         public float GetVertexValue(string name)
         {
-            // TODO : implémenter
-            return 0.0f;
+            int index = GetVertexIndex(vertexName);// TODO : implémenter
+            return vertexValues[index];
         }
 
         // Affecte la valeur du sommet de nom `name` à `value`
         // Lève une ArgumentException si le sommet n'a pas été trouvé dans le graphe
         public void SetVertexValue(string name, float value)
         {
-            // TODO : implémenter
+            int index = GetVertexIndex(vetrtexName);    // TODO : implémenter
+            vertexValues[index] = value;
         }
 
 
@@ -91,7 +96,14 @@ namespace TourneeFutee
         {
             List<string> neighborNames = new List<string>();
 
-            // TODO : implémenter
+            int index = GetVertexIndex(vertexName);  // TODO : implémenter
+            for (int j = 0; j < Order; j++)
+            {
+                if (adjacencyMatrix[index, j] != noEdgeValue)
+                {
+                    neighborNames.Add(vertexNames[j]);
+                }
+            }
 
             return neighborNames;
         }
@@ -106,7 +118,17 @@ namespace TourneeFutee
          */
         public void AddEdge(string sourceName, string destinationName, float weight = 1)
         {
-            // TODO : implémenter
+            int sourceIndex = GetVertexIndex(sourceName);   // TODO : implémenter
+            int destinationIndex = GetVertexIndex(destinationName);
+            if (adjacencyMatrix[sourceIndex, destinationIndex] != noEdgeValue)
+            {
+                throw new ArgumentException($"Il existe déjà un arc allant de '{sourceName}' à '{destinationName}'.");
+            }
+            adjacencyMatrix.SetValue(sourceIndex, destinationIndex, weight);
+            if (!directed)
+            {
+                adjacencyMatrix.SetValue(destinationIndex, sourceIndex, weight);
+            }
         }
 
         /* Supprime l'arc allant du sommet nommé `sourceName` au sommet nommé `destinationName` du graphe
@@ -117,7 +139,17 @@ namespace TourneeFutee
          */
         public void RemoveEdge(string sourceName, string destinationName)
         {
-            // TODO : implémenter
+            int sourceIndex = GetVertexIndex(sourceName);   // TODO : implémenter
+            int destinationIndex = GetVertexIndex(destinationName);
+            if (adjacencyMatrix[sourceIndex, destinationIndex] == noEdgeValue)
+            {
+                throw new ArgumentException($"Il n'existe pas d'arc allant de '{sourceName}' à '{destinationName}'.");
+            }
+            adjacencyMatrix.SetValue(sourceIndex, destinationIndex, noEdgeValue);
+            if (!directed)
+            {
+                adjacencyMatrix.SetValue(destinationIndex, sourceIndex, noEdgeValue);
+            }
         }
 
         /* Renvoie le poids de l'arc allant du sommet nommé `sourceName` au sommet nommé `destinationName`
