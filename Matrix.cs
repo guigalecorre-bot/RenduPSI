@@ -1,15 +1,18 @@
 ﻿namespace TourneeFutee
 {
-    public class Matrix
+    using System;
+    using System.Collections.Generic;
+    namespace TourneeFutee
     {
-        // TODO : ajouter tous les attributs que vous jugerez pertinents 
+        public class Matrix
+        {// TODO : ajouter tous les attributs que vous jugerez pertinents 
 
+            private List<List<float>> mat;
+            private int nbRows;
+            private int nbColums;
+            private float defaultValue;
 
-        /* Crée une matrice de dimensions `nbRows` x `nbColums`.
-         * Toutes les cases de cette matrice sont remplies avec `defaultValue`.
-         * Lève une ArgumentOutOfRangeException si une des dimensions est négative
-         */
-        public Matrix(int nbRows = 0, int nbColumns = 0, float defaultValue = 0)
+            public Matrix(int nbRows = 0, int nbColumns = 0, float defaultValue = 0)
         {
             // TODO : implémenter
         }
