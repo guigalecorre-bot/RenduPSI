@@ -12,14 +12,35 @@
             private int nbColums;
             private float defaultValue;
 
-            public Matrix(int nbRows = 0, int nbColumns = 0, float defaultValue = 0)
-        {
-            // TODO : implémenter
-        }
+            /* Crée une matrice de dimensions `nbRows` x `nbColums`.
+          * Toutes les cases de cette matrice sont remplies avec `defaultValue`.
+          * Lève une ArgumentOutOfRangeException si une des dimensions est négative
+          */
+            public Matrix(int nbRows = 0, int nbColumns = 0, float defaultValue = 0)// TODO : implémenter
+            {
+                if (nbRows < 0 || nbColumns < 0)
+                {
+                    throw new ArgumentOutOfRangeException("Les dimensions de la matrice doivent être positives.");
+                }
+                this.nbRows = nbRows;
+                this.nbColums = nbColumns;
+                this.defaultValue = defaultValue;
+                this.mat = new List<List<float>>();
 
-        // Propriété : valeur par défaut utilisée pour remplir les nouvelles cases
-        // Lecture seule
-        public float DefaultValue
+                for (int i = 0; i < nbRows; i++)
+                {
+                    List<float> row = new List<float>();
+                    for (int j = 0; j < nbColumns; j++)
+                    {
+                        row.Add(defaultValue);
+                    }
+                    this.mat.Add(row);
+                }
+            }
+
+            // Propriété : valeur par défaut utilisée pour remplir les nouvelles cases
+            // Lecture seule
+            public float DefaultValue
         {
             get; // TODO : implémenter
                  // pas de set
