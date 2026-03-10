@@ -160,8 +160,14 @@ namespace TourneeFutee
          */
         public float GetEdgeWeight(string sourceName, string destinationName)
         {
-            // TODO : implémenter
-            return 0.0f;
+            int sourceIndex = GetVertexIndex(sourceName);   // TODO : implémenter
+            int destinationIndex = GetVertexIndex(destinationName);
+            float weight = adjacencyMatrix.GetValue(sourceIndex, destinationIndex);
+            if (weight == noEdgeValue)
+            {
+                throw new ArgumentException($"Il n'existe pas d'arc allant de '{sourceName}' à '{destinationName}'.");
+            }
+            return weight;
         }
 
         /* Affecte le poids l'arc allant du sommet nommé `sourceName` au sommet nommé `destinationName` à `weight` 
@@ -170,11 +176,26 @@ namespace TourneeFutee
          */
         public void SetEdgeWeight(string sourceName, string destinationName, float weight)
         {
-            // TODO : implémenter
+            int sourceIndex = GetVertexIndex(sourceName);   // TODO : implémenter
+            int destinationIndex = GetVertexIndex(destinationName);
+            adjacencyMatrix.SetValue(sourceIndex, destinationIndex, weight);
+            if (!directed)
+            {
+                adjacencyMatrix.SetValue(destinationIndex, sourceIndex, weight);
+            }
         }
 
         // TODO : ajouter toutes les méthodes que vous jugerez pertinentes 
 
+        private int GetVertexIndex(string name)
+        {
+            int index = vertexNames.IndexOf(vertexName);
+            if (index == -1)
+            {
+                throw new ArgumentException($"Le sommet de nom '{name}' n'a pas été trouvé dans le graphe.");
+            }
+            return index;
+        }
     }
 
 
